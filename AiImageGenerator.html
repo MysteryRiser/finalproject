@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+
+.image-generator {
+  width: 100%;
+  height: 100%;
+  padding: 10vh 0 10vh 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: url("images/bg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.image-generator::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background: #121212;
+}
+
+.image-generator .content {
+  position: relative;
+  color: #fff;
+  padding: 0 15px;
+  max-width: 760px;
+  text-align: center;
+}
+
+.image-generator h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.image-generator p {
+  margin-top: 10px;
+  font-size: 1.35rem;
+}
+@media screen and (max-width: 760px) {
+      .image-generator h1 {
+    font-size: 1.8rem;
+  }
+
+  .image-generator p {
+    font-size: 1rem;
+  }
+}
+
+
+
+/* body{
+    background: #0c0335;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container{
+    position: relative;
+    width: 40rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.44);
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.4px);
+    -webkit-backdrop-filter: blur(7.4px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.container::before{
+    content: "";
+    position: absolute;
+    background-color: #ed2ff0;
+    width: 120px;
+    height: 120px;
+    filter: blur(140px);
+    left: -20%;
+    top: 10%;
+    z-index: -1000;
+}
+
+.container::after{
+    content: "";
+    position: absolute;
+    background-color: #675afe;
+    width: 120px;
+    height: 120px;
+    filter: blur(140px);
+    right: -20%;
+    bottom: -10%;
+    z-index: -1000;
+}
+
+h1{
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+p{
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.4rem;
+    text-align: justify;
+} */
+
+.gen-form{
+    /* margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 30px;
+    height: 44px; */
+  height: 56px;
+  padding: 6px;
+  display: flex;
+  margin-bottom: 15px;
+  background: #fff;
+  align-items: center;
+  border-radius: 30px;
+  margin-top: 45px;
+  justify-content: space-between;
+}
+
+input{
+    /* width: 80%;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    padding: 0 15px;
+    background: none;
+    color: #fff;
+    
+    transition: all 0.3s ease; */
+    width: 100%;
+  height: 100%;
+  outline: none;
+  padding: 0 17px;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  border-radius: 30px;
+}
+
+input:hover, input:focus{
+    border-color: #675afe;
+}
+
+button{
+    /* width: 20%;
+    height: 100%;
+    color: #fff;
+    border: 1px solid #ccc;
+    background: #4949E7;
+    cursor: pointer;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease; */
+    font-size: 1rem;
+  outline: none;
+  border: none;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  height: 100%;
+  padding: 0 25px;
+  border-radius: 30px;
+  background: #4949E7;
+}
+
+button:hover{
+    background: #675afe;
+    border-color: transparent;
+}
+
+#loading{
+    display: none;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+button:disabled, button[disabled]{
+    border: 1px solid #999;
+    background-color: #1e1f5a;
+    color: #d0d0d0;
+    cursor: auto;
+}
+
+.result{
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#image-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 10px;
+    max-width: 80%;
+}
+
+#image-grid img{
+    max-width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+#image-grid img:hover{
+    border-color: #675afe;
+}
+
+
+
+
+.image-gallery {
+  display: flex;
+  gap: 15px;
+  padding: 0 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 50px auto;
+  max-width: 1250px;
+}
+
+.image-gallery .img-card {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  background: #f2f2f2;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  width: 285px;
+}
+
+.image-gallery .img-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-gallery .img-card.loading img {
+  width: 80px;
+  height: 80px;
+}
+
+.image-gallery .img-card .download-btn {
+  bottom: 15px;
+  right: 15px;
+  height: 36px;
+  width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+.image-gallery .img-card .download-btn img {
+  width: 14px;
+  height: 14px;
+}
+
+.image-gallery .img-card:not(.loading):hover .download-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#loading{
+    
+    justify-content: center;
+    align-item: center;
+    flex-direction: column;
+    text-align: center;
+}
+    </style>
+</head>
+
+<body>
+<section class="image-generator">
+    <div class="content">
+        
+        
+        
+    <div class="container">
+        <h1>AI Image Generator</h1>
+        <p>Write your prompt here to generate images with the power of AI! For example : "Best Quality, Masterpiece,
+            Exteremly Detailed, High Resolution, 4K, Ultra High Resolution, Detailed Shadows, (Two Girls in Cosumes
+            Taking Selfies on The Street), Colorful Braids, Mixed Fujifilm, Cute, Laugh."</p>
+        <form class="gen-form">
+            <input type="text" id="user-prompt" , placeholder="Type your prompt here..." autocomplete="off">
+            <button type="button" id="generate">Generate</button>
+        </form>
+
+
+    </div>
+  </section>
+  
+  
+  
+        <div class="result">
+            <div id="loading">Generating...
+            <img src="images/loader.svg" alt=""></div>
+            <div id="image-grid"></div>
+        </div>
+
+    </div>
+
+
+  <section class="image-gallery">
+    <div class="img-card"><img src="images/img-1.jpg" alt="image"></div>
+    <div class="img-card"><img src="images/img-2.jpg" alt="image"></div>
+    <div class="img-card"><img src="images/img-3.jpg" alt="image"></div>
+    <div class="img-card"><img src="images/img-4.jpg" alt="image"></div>
+  </section>
+
+
+
+    <script>
+        
+        
+        const imageGallery = document.querySelector(".image-gallery");
+        document.getElementById("generate").addEventListener('click', removeimg);
+        function removeimg() {
+           imageGallery.style.display="none";
+        }
+        
+        
+        const apiKey = "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";
+
+const maxImages = 4; // Number of images to generate for each prompt
+let selectedImageNumber = null;
+
+// Function to generate a random number between min and max (inclusive)
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Function to disable the generate button during processing
+function disableGenerateButton() {
+    document.getElementById("generate").disabled = true;
+}
+
+// Function to enable the generate button after process
+function enableGenerateButton() {
+    document.getElementById("generate").disabled = false;
+}
+
+// Function to clear image grid
+function clearImageGrid() {
+    const imageGrid = document.getElementById("image-grid");
+    imageGrid.innerHTML = "";
+}
+
+// Function to generate images
+async function generateImages(input) {
+    disableGenerateButton();
+    clearImageGrid();
+
+    const loading = document.getElementById("loading");
+    loading.style.display = "flex";
+
+    const imageUrls = [];
+
+    for (let i = 0; i < maxImages; i++) {
+        // Generate a random number between 1 and 10000 and append it to the prompt
+        const randomNumber = getRandomNumber(1, 10000);
+        const prompt = `${input} ${randomNumber}`;
+        // We added random number to prompt to create different results
+        const response = await fetch(
+            "https://api-inference.huggingface.co/models/prompthero/openjourney",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`,
+                },
+                body: JSON.stringify({ inputs: prompt }),
+            }
+        );
+
+
+        if (!response.ok) {
+            alert("Failed to generate image!");
+        }
+
+        const blob = await response.blob();
+        const imgUrl = URL.createObjectURL(blob);
+        imageUrls.push(imgUrl);
+
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = `art-${i + 1}`;
+        img.onclick = () => downloadImage(imgUrl, i);
+        document.getElementById("image-grid").appendChild(img);
+    }
+
+    loading.style.display = "none";
+    enableGenerateButton();
+
+    selectedImageNumber = null; // Reset selected image number
+}
+
+document.getElementById("generate").addEventListener('click', () => {
+    const input = document.getElementById("user-prompt").value;
+    generateImages(input);
+});
+
+function downloadImage(imgUrl, imageNumber) {
+    const link = document.createElement("a");
+    link.href = imgUrl;
+    // Set filename based on the selected image
+    link.download = `image-${imageNumber + 1}.jpg`;
+    link.click();
+}
+    </script>
+    
+</body>
+
+</html>

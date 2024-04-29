@@ -1,0 +1,268 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html{
+    font-family: "Roboto", sans-serif;
+}
+
+.background{
+    width: 100%;
+    height: 30vmax;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-item: center;
+    flex-direction: column;
+    /* background: linear-gradient(135deg, #ffd26a, #95fff5, #d995ff); */
+    background-image: url('goodback2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+}
+
+.container{
+    background: #ffffff;
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-item: center;
+    flex-direction: column;
+    position: relative;
+    top: -15px;
+}
+
+.textCenter{
+    text-align: center;
+    font-size:30px;
+}
+
+.firstFunction{
+    background: #eaffff;
+    width: 90%;
+    height: auto;
+    margin: auto;
+    border-radius: 15px;
+    
+    display: flex;
+    justify-content: center;
+    align-item: center;
+    flex-direction: column;
+    
+}
+.active{
+    display: none;
+}
+.active2{
+    display: none;
+}
+
+
+.firstFunction:hover{
+    box-shadow: 0px 0px 20px 1px #00001066;
+}
+
+
+h1,h2{
+    text-align: center;
+    color: #00063f;
+}
+
+.title {
+    padding: 5vmax;
+}
+
+h1{
+    font-size:5vmax;
+    color: #ffffff;
+    text-shadow: 0px 0px 20px #000000;
+}
+
+h2{
+    padding: 5vmax;
+    font-size:3.8vmax;
+    
+}
+
+.explore{
+    animation-name: letsExplore;
+    animation-play-state: paused;
+    transition: all 1s;
+    animation-duration: 1s;
+}
+
+@keyframes letsExplore{
+    from {top: 0vh;
+    transform: translate(0,2vh)}
+    to {top: 0vh;}
+}
+
+.animationText{
+    position: relative;
+    
+    background: #00063f;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 1px #00000010;
+    font-size:3.8vmax;
+    margin: 50px;
+    border-radius: 15px;
+}
+
+.more{
+    transition: all 1s;
+    animation-duration: 1s;
+}
+
+.firstFunction div{
+    background: transparent;
+    width: 90%;
+    height: auto;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-item: center;
+    flex-direction: column;
+    
+}
+
+.firstFunction div a{
+    color: #00063f;
+    background: transparent;
+    border: 2px solid #00063f;
+    text-align: center;
+    text-decoration: none;
+    font-size:3.5vmax;
+    margin: 10px;
+    margin-top: 20px;
+    padding: 5px;
+    border-radius: 3.5vw;
+    display: flex;
+    justify-content: center;
+    align-item: center;
+    flex-direction: column;
+    transition-duration:0.5s;
+}
+
+.firstFunction div a:hover{
+    box-shadow: 0px 0px 10px 1px #00000046;
+    transform: scale(1.05);
+    color: #ffffff;
+    background: #00063f;
+    border:none;
+}
+
+
+
+
+
+
+
+/* Menu icons and shortcut links */
+
+.options{
+            display: flex;
+            justify-content: space-evenly;
+            align-item: center;
+            background: #d5f4ffc1;
+            width:;
+            height:;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 15px;
+            flex-wrap: wrap;
+            overflow: hidden;
+        }
+        span{
+            display: flex;
+            justify-content: center;
+            align-item: center;
+            flex-direction: column;
+            text-align: center;
+            
+        }
+        
+        .i{
+            background: #ffc700;
+            
+            margin: auto;
+            padding: 7px;
+            border-radius: 30px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-item: center;
+            font-size: 3.5vmax;
+        }
+        .options span a{
+            margin: 10px;
+            font-size:1.2vmax;
+            
+            
+        }
+        
+        .a{
+            text-decoration: none;
+            color: #00063f;
+            display: flex;
+            justify-content: center;
+            align-item: center;
+            flex-direction: column;
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+/* Default border radius for mobile */
+@media only screen and (max-width: 767px){
+    .firstFunction div a{
+    border-radius: 3.5vw;
+    }
+    .container{
+        border-radius: 15px;
+    }
+    .options{
+    border-radius: 15px;
+}
+}
+
+
+
+/* Increase border radius for larger screens */
+
+
+@media (min-width: 768px) {
+.container {
+border-radius: 40px;
+top: -40px;
+}
+.options{
+    border-radius: 40px;
+}
+.i{padding: 14px;}
+}
+
+@media (min-width: 1200px) {
+.container {
+border-radius: 50px;
+top: -50px;
+}
+.options{
+    border-radius: 50px;
+}
+.i{padding: 18px;}
+}
